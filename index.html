@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IVIM and DppCASL Parameter Trends with Rounded Bars</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div style="width: 80%; margin: auto;">
+    <canvas id="paramChart"></canvas>
+  </div>
+  <script>
+    const ctx = document.getElementById('paramChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Stroke', 'Gliomas', 'Multiple Sclerosis', 'CSVD', 'COVID-19'],
+        datasets: [
+          {
+            label: 'IVIM: D (Diffusion Coefficient)',
+            data: [-1, -1, -1, 1, -1],
+            backgroundColor: '#4CAF50',
+            borderColor: '#388E3C',
+            borderWidth: 1,
+            borderRadius: 10
+          },
+          {
+            label: 'IVIM: f (Perfusion Fraction)',
+            data: [-1, 1, 0, 1, 0],
+            backgroundColor: '#2196F3',
+            borderColor: '#1976D2',
+            borderWidth: 1,
+            borderRadius: 10
+          },
+          {
+            label: 'IVIM: D* (Pseudo-Diffusion)',
+            data: [-1, 1, 0, 0, 0],
+            backgroundColor: '#F44336',
+            borderColor: '#D32F2F',
+            borderWidth: 1,
+            borderRadius: 10
+          },
+          {
+            label: 'DppCASL: CBF (Cerebral Blood Flow)',
+            data: [-1, 1, 1, -1, 0],
+            backgroundColor: '#FF9800',
+            borderColor: '#F57C00',
+            borderWidth: 1,
+            borderRadius: 10
+          },
+          {
+            label: 'DppCASL: ATT (Arterial Transit Time)',
+            data: [1, 0, 0, 0, 1],
+            backgroundColor: '#9C27B0',
+            borderColor: '#7B1FA2',
+            borderWidth: 1,
+            borderRadius: 10
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'IVIM and DppCASL Parameter Trends in Pathological Conditions Including CSVD and COVID-19'
+          },
+          legend: {
+            position: 'top'
+          }
+        },
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: 'Parameter Change'
+            },
+           ticks: {
+              callback: function(value) {
+                if (value === 1) return 'Increased';
+                if (value === 0) return 'Variable';
+                if (value === -1) return 'Decreased';
+                return '';
+              },
+              stepSize: 1
+            },
+            min: -1.5,
+            max: 1.5
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Pathological Condition'
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
